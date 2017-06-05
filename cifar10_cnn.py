@@ -25,8 +25,8 @@ print(x_train.shape[0], 'train samples')
 print(x_test.shape[0], 'test samples')
 
 # Convert class vectors to binary class matrices.
-y_train = keras.np_utils.to_categorical(y_train, num_classes)
-y_test = keras.np_utils.to_categorical(y_test, num_classes)
+y_train = keras.utils.np_utils.to_categorical(y_train, num_classes)
+y_test = keras.utils.np_utils.to_categorical(y_test, num_classes)
 
 model = Sequential()
 
