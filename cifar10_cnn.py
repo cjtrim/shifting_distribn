@@ -66,6 +66,6 @@ x_test /= 255
 
 model.fit(x_train, y_train,
           batch_size=batch_size,
-          epochs=epochs,
+          nb_epoch=epochs,
           validation_data=(x_test, y_test),
           shuffle=True)
