@@ -8,7 +8,6 @@ It gets down to 0.65 test logloss in 25 epochs, and down to 0.55 after 50 epochs
 from __future__ import print_function
 import keras
 from keras.datasets import cifar10
-from keras.preprocessing.image import ImageDataGenerator
 from keras.models import Sequential
 from keras.layers import Dense, Dropout, Activation, Flatten
 from keras.layers import Conv2D, MaxPooling2D
@@ -16,7 +15,6 @@ from keras.layers import Conv2D, MaxPooling2D
 batch_size = 32
 num_classes = 10
 epochs = 200
-data_augmentation = True
 
 # The data, shuffled and split between train and test sets:
 (x_train, y_train), (x_test, y_test) = cifar10.load_data()
