@@ -25,9 +25,9 @@ FLAGS = flags.FLAGS
 
 flags.DEFINE_string('train_dir', '/tmp', 'Directory storing the saved model.')
 flags.DEFINE_string('filename', 'cifar2.ckpt', 'Filename to save model under.')
-flags.DEFINE_integer('nb_epochs', 200, 'Number of epochs to train model')
-flags.DEFINE_integer('batch_size', 128, 'Size of training batches')
-flags.DEFINE_float('learning_rate', 0.1, 'Learning rate for training')
+flags.DEFINE_integer('nb_epochs', 100, 'Number of epochs to train model')
+flags.DEFINE_integer('batch_size', 64, 'Size of training batches')
+flags.DEFINE_float('learning_rate', 0.01, 'Learning rate for training')
 
 
 def data_cifar10():
@@ -119,7 +119,7 @@ def main(argv=None):
         eval_params = {'batch_size': FLAGS.batch_size}
         accuracy = model_eval(sess, x, y, predictions, X_test, Y_test,
                               args=eval_params)
-        assert X_test.shape[0] == 10000, X_test.shape
+        assert X_test.shape[0] == 2000, X_test.shape
         print('Test accuracy on legitimate test examples: ' + str(accuracy))
 
     # Train an CIFAR10 model
@@ -135,7 +135,7 @@ def main(argv=None):
     adv_x = fgsm(x, predictions, eps=0.3)
     eval_params = {'batch_size': FLAGS.batch_size}
     X_test_adv, = batch_eval(sess, [x], [adv_x], [X_test], args=eval_params)
-    assert X_test_adv.shape[0] == 10000, X_test_adv.shape
+    assert X_test_adv.shape[0] == 2000
     img_adv = to_image(X_test_adv)
     for i in range(1,10):
         img_adv[i].show()
