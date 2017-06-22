@@ -39,7 +39,7 @@ def data_cifar10():
     # These values are specific to CIFAR10
     img_rows = 32
     img_cols = 32
-    nb_classes = 2
+    nb_classes = 10
 
     # the data, shuffled and split between train and test sets
     (X_train, y_train), (X_test, y_test) = cifar10.load_data()
@@ -102,7 +102,7 @@ def main(argv=None):
     y = tf.placeholder(tf.float32, shape=(None, 10))
 
     # Define TF model graph
-    model = cnn_model(img_rows=32, img_cols=32, channels=3)
+    model = cnn_model(X_train.shape[1:], Y_train.shape[1])
     predictions = model(x)
     print("Defined TensorFlow model graph.")
 
@@ -178,10 +178,10 @@ def to_image(example):
         img = Image.fromarray(example, 'RGB')
     return img
 
-def cnn_model():
+def cnn_model(in_shape, num_classes):
     model = Sequential()
 
-    model.add(Conv2D(32, 3, 3, border_mode='same', input_shape=x_train.shape[1:]))
+    model.add(Conv2D(32, 3, 3, border_mode='same', input_shape=in_shape))
     model.add(Activation('relu'))
     model.add(Conv2D(32, 3, 3))
     model.add(Activation('relu'))

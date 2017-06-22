@@ -12,7 +12,7 @@ from keras.models import Sequential
 from keras.layers import Dense, Dropout, Activation, Flatten, Conv2D, MaxPooling2D
 
 
-batch_size = 32
+batch_size = 64
 num_classes = 10
 epochs = 200
 
