@@ -142,6 +142,7 @@ def main(argv=None):
               nb_epoch=epochs,
               validation_data=(x_test, y_test),
               shuffle=True)
+
     # Craft adversarial examples using Fast Gradient Sign Method (FGSM)
     adv_x = fgsm(x, predictions, eps=0.3)
     eval_params = {'batch_size': FLAGS.batch_size}

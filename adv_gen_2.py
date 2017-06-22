@@ -114,12 +114,13 @@ def main(argv=None):
     predictions = model(x)
     print("Defined TensorFlow model graph.")
 
+    """
     def evaluate():
         # Evaluate the accuracy of the CIFAR10 model on legitimate test examples
         eval_params = {'batch_size': FLAGS.batch_size}
         accuracy = model_eval(sess, x, y, predictions, X_test, Y_test,
                               args=eval_params)
-        assert X_test.shape[0] == 2000, X_test.shape
+        assert X_test.shape[0] == 10000, X_test.shape
         print('Test accuracy on legitimate test examples: ' + str(accuracy))
 
     # Train an CIFAR10 model
@@ -130,6 +131,25 @@ def main(argv=None):
     }
     model_train(sess, x, y, predictions, X_train, Y_train,
                 evaluate=evaluate, args=train_params)
+    """
+    # initiate RMSprop optimizer
+    opt = keras.optimizers.rmsprop(lr=0.0001, decay=1e-6)
+
+    # Let's train the model using RMSprop
+    model.compile(loss='categorical_crossentropy',
+                  optimizer=opt,
+                  metrics=['accuracy'])
+
+    x_train = X_train.astype('float32')
+    x_test = X_test.astype('float32')
+    x_train /= 255
+    x_test /= 255
+
+    model.fit(x_train, y_train,
+              batch_size=batch_size,
+              nb_epoch=epochs,
+              validation_data=(x_test, y_test),
+              shuffle=True)
 
     # Craft adversarial examples using Fast Gradient Sign Method (FGSM)
     adv_x = fgsm(x, predictions, eps=0.3)
