@@ -146,8 +146,8 @@ def main(argv=None):
     X_test /= 255
 
     model.fit(X_train, Y_train,
-              batch_size=batch_size,
-              nb_epoch=epochs,
+              batch_size=FLAGS.batch_size,
+              nb_epoch=FLAGS.nb_epochs,
               validation_data=(X_test, Y_test),
               shuffle=True)
 
