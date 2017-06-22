@@ -203,7 +203,7 @@ def main(argv=None):
     print('Test accuracy on adversarial examples: ' + str(accuracy))
 
 def to_image(example):
-    example = [e * 255 for e in example]
+    example = np.array([e * 255 for e in example])
     example = example.astype('uint8')
     if len(example.shape) == 4:
         img = [Image.fromarray(i, 'RGB') for i in example]
