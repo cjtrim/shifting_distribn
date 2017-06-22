@@ -120,13 +120,14 @@ def main(argv=None):
                               args=eval_params)
         assert X_test.shape[0] == 10000, X_test.shape
         print('Test accuracy on legitimate test examples: ' + str(accuracy))
-
+    """
     # Train an CIFAR10 model
     train_params = {
         'nb_epochs': FLAGS.nb_epochs,
         'batch_size': FLAGS.batch_size,
         'learning_rate': FLAGS.learning_rate
     }
+    """
     model_train(sess, x, y, predictions, X_train, Y_train,
                 evaluate=evaluate, args=train_params)
     """
