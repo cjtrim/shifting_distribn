@@ -139,11 +139,6 @@ def main(argv=None):
                   optimizer=opt,
                   metrics=['accuracy'])
 
-    X_train = X_train.astype('float32')
-    X_test = X_test.astype('float32')
-    X_train /= 255
-    X_test /= 255
-
     img = to_image(X_train[1])
     img.show()
 
