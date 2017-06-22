@@ -201,8 +201,8 @@ def main(argv=None):
                           args=eval_params)
     print('Test accuracy on adversarial examples: ' + str(accuracy))
 
-def to_image(example):
-    example = np.array([e * 255 for e in example])
+def to_image(ex):
+    example = ex * 255
     example = example.astype('uint8')
     if len(example.shape) == 4:
         img = [Image.fromarray(i, 'RGB') for i in example]
