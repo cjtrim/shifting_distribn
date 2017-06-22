@@ -98,8 +98,6 @@ def main(argv=None):
 
     # Get CIFAR10 test data
     X_train, Y_train, X_test, Y_test = data_cifar10()
-    img = to_image(X_train[1])
-    img.show()
 
     assert Y_train.shape[1] == 2.
     label_smooth = .1
@@ -145,6 +143,9 @@ def main(argv=None):
     X_train /= 255
     X_test /= 255
 
+    img = to_image(X_train[1])
+    img.show()
+
     model.fit(X_train, Y_train,
               batch_size=FLAGS.batch_size,
               nb_epoch=FLAGS.nb_epochs,
@@ -156,6 +157,10 @@ def main(argv=None):
     eval_params = {'batch_size': FLAGS.batch_size}
     X_test_adv, = batch_eval(sess, [x], [adv_x], [X_test], args=eval_params)
     assert X_test_adv.shape[0] == 2000
+
+    X_test_adv = X_test.astype('float32')
+    X_test_adv /= 255
+
     img_adv = to_image(X_test_adv)
     for i in range(1,10):
         img_adv[i].show()
@@ -168,7 +173,7 @@ def main(argv=None):
 
     print("Repeating the process, using adversarial training")
     # Redefine TF model graph
-    model_2 = cnn_model(X_train.shape[1:])
+    model_2 = cnn_model(X_train.shape[1:], Y_test.shape[1])
     predictions_2 = model_2(x)
     adv_x_2 = fgsm(x, predictions_2, eps=0.3)
     predictions_2_adv = model_2(adv_x_2)
@@ -198,7 +203,7 @@ def main(argv=None):
     print('Test accuracy on adversarial examples: ' + str(accuracy))
 
 def to_image(example):
-    example *= 255
+    example = [e * 255 for e in example]
     example = example.astype('uint8')
     if len(example.shape) == 4:
         img = [Image.fromarray(i, 'RGB') for i in example]
