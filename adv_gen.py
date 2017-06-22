@@ -25,7 +25,7 @@ FLAGS = flags.FLAGS
 
 flags.DEFINE_string('train_dir', '/tmp', 'Directory storing the saved model.')
 flags.DEFINE_string('filename', 'cifar10.ckpt', 'Filename to save model under.')
-flags.DEFINE_integer('nb_epochs', 15, 'Number of epochs to train model')
+flags.DEFINE_integer('nb_epochs', 200, 'Number of epochs to train model')
 flags.DEFINE_integer('batch_size', 128, 'Size of training batches')
 flags.DEFINE_float('learning_rate', 0.1, 'Learning rate for training')
 
@@ -140,7 +140,7 @@ def main(argv=None):
 
     print("Repeating the process, using adversarial training")
     # Redefine TF model graph
-    model_2 = cnn_model(img_rows=32, img_cols=32, channels=3)
+    model_2 = cnn_model(X_train.shape[1:])
     predictions_2 = model_2(x)
     adv_x_2 = fgsm(x, predictions_2, eps=0.3)
     predictions_2_adv = model_2(adv_x_2)
