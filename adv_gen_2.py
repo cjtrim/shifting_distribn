@@ -162,10 +162,8 @@ def main(argv=None):
     X_test_adv = X_test.astype('float32')
     X_test_adv /= 255
 
-    img_adv = to_image(X_test_adv)
-    for i in range(1,10):
-        img_adv[i].show()
-        img_adv[i].save('adv_eg_'+str(i)+'.png')
+    img_adv = to_image(X_test_adv[1])
+    img_adv.show()
 
     # Evaluate the accuracy of the CIFAR10 model on adversarial examples
     accuracy = model_eval(sess, x, y, predictions, X_test_adv, Y_test,
@@ -204,8 +202,8 @@ def main(argv=None):
     print('Test accuracy on adversarial examples: ' + str(accuracy))
 
 def to_image(example):
-    example = np.array([e * 255 for e in example])
-    example = example.astype('uint8')
+    #example = np.array([e * 255 for e in example])
+    #example = example.astype('uint8')
     if len(example.shape) == 4:
         img = [Image.fromarray(i, 'RGB') for i in example]
     else:
