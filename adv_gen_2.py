@@ -42,15 +42,15 @@ def data_cifar10():
     nb_classes = 2
 
     # the data, shuffled and split between train and test sets
-    (X_train, y_train), (X_test, y_test) = cifar10.load_data()
+    (X_train, Y_train), (X_test, Y_test) = cifar10.load_data()
 
-    inds_train = [i for i, e in enumerate(y_train) if e in (0, 1)]
-    inds_test = [i for i, e in enumerate(y_test) if e in (0, 1)]
+    inds_train = [i for i, e in enumerate(Y_train) if e in (0, 1)]
+    inds_test = [i for i, e in enumerate(Y_test) if e in (0, 1)]
 
     X_train = X_train[inds_train]
-    y_train = y_train[inds_train]
+    Y_train = Y_train[inds_train]
     X_test = X_test[inds_test]
-    y_test = y_test[inds_test]
+    Y_test = Y_test[inds_test]
 
     if keras.backend.image_dim_ordering() == 'th':
         X_train = X_train.reshape(X_train.shape[0], 3, img_rows, img_cols)
@@ -68,8 +68,8 @@ def data_cifar10():
     print(X_test.shape[0], 'test samples')
 
     # convert class vectors to binary class matrices
-    Y_train = np_utils.to_categorical(y_train, nb_classes)
-    Y_test = np_utils.to_categorical(y_test, nb_classes)
+    Y_train = np_utils.to_categorical(Y_train, nb_classes)
+    Y_test = np_utils.to_categorical(Y_test, nb_classes)
     return X_train, Y_train, X_test, Y_test
 
 
@@ -140,15 +140,15 @@ def main(argv=None):
                   optimizer=opt,
                   metrics=['accuracy'])
 
-    x_train = X_train.astype('float32')
-    x_test = X_test.astype('float32')
-    x_train /= 255
-    x_test /= 255
+    X_train = X_train.astype('float32')
+    X_test = X_test.astype('float32')
+    X_train /= 255
+    X_test /= 255
 
-    model.fit(x_train, y_train,
+    model.fit(X_train, Y_train,
               batch_size=batch_size,
               nb_epoch=epochs,
-              validation_data=(x_test, y_test),
+              validation_data=(X_test, Y_test),
               shuffle=True)
 
     # Craft adversarial examples using Fast Gradient Sign Method (FGSM)
