@@ -108,6 +108,13 @@ def main(argv=None):
         'batch_size': FLAGS.batch_size,
         'learning_rate': FLAGS.learning_rate
     }
+    def evaluate():
+        # Evaluate the accuracy of the CIFAR10 model on legitimate test examples
+        eval_params = {'batch_size': FLAGS.batch_size}
+        accuracy = model_eval(sess, x, y, predictions, X_test, Y_test,
+                              args=eval_params)
+        assert X_test.shape[0] == 10000, X_test.shape
+        print('Test accuracy on legitimate test examples: ' + str(accuracy))
 
     model_train(sess, x, y, predictions, X_train, Y_train,
                 evaluate=evaluate, args=train_params)
