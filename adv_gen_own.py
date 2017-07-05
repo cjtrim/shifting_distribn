@@ -25,7 +25,7 @@ FLAGS = flags.FLAGS
 
 flags.DEFINE_string('train_dir', '/tmp', 'Directory storing the saved model.')
 flags.DEFINE_string('filename', 'cifar2.ckpt', 'Filename to save model under.')
-flags.DEFINE_integer('nb_epochs', 100, 'Number of epochs to train model')
+flags.DEFINE_integer('nb_epochs', 150, 'Number of epochs to train model')
 flags.DEFINE_integer('batch_size', 32, 'Size of training batches')
 flags.DEFINE_float('learning_rate', 0.001, 'Learning rate for training')
 
@@ -119,6 +119,9 @@ def main(argv=None):
     model_train(sess, x, y, predictions, X_train, Y_train,
                 evaluate=evaluate, args=train_params)
 
+    img = to_image(X_train[1])
+    img.show()
+
     """
     # initiate RMSprop optimizer
     opt = keras.optimizers.rmsprop(lr=0.0001, decay=1e-6)
@@ -127,18 +130,16 @@ def main(argv=None):
     model.compile(loss='categorical_crossentropy',
                   optimizer=opt,
                   metrics=['accuracy'])
-    """
-    img = to_image(X_train[1])
-    img.show()
 
     model.fit(X_train, Y_train,
               batch_size=FLAGS.batch_size,
               nb_epoch=FLAGS.nb_epochs,
               validation_data=(X_test, Y_test),
               shuffle=True)
-
+    """
     print("Done")
     quit()
+    
     ### GENERATE ADV IMGS
 
     ### RETRAIN
