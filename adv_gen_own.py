@@ -130,7 +130,7 @@ def main(argv=None):
               validation_data=(X_test, Y_test),
               shuffle=True)
 
-    print "Done"
+    print("Done")
     quit()
     ### GENERATE ADV IMGS
 
