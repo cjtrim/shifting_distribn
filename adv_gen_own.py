@@ -64,8 +64,8 @@ def main(argv=None):
     (X_train, Y_train), (X_test, Y_test) = cifar10.load_data()
 
     # keep only the important classes
-    inds_train = [i for i, e in enumerate(Y_train) if e in range(num_classes)]
-    inds_test = [i for i, e in enumerate(Y_test) if e in range(num_classes)]
+    inds_train = [i for i, e in enumerate(Y_train) if e in range(nb_classes)]
+    inds_test = [i for i, e in enumerate(Y_test) if e in range(nb_classes)]
     X_train = X_train[inds_train]
     Y_train = Y_train[inds_train]
     X_test = X_test[inds_test]
