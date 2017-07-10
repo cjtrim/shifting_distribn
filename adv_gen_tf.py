@@ -272,6 +272,9 @@ def mnist_tutorial(train_start=0, train_end=60000, test_start=0,
     X_test_adv, = batch_eval(sess, [x], [adv_x], [X_test])
     preds_adv = model.get_probs(adv_x)
 
+    img = to_image(X_test_adv[1]+X_train[1])
+    img.show()
+
     # Evaluate the accuracy of the MNIST model on adversarial examples
     eval_par = {'batch_size': batch_size}
     acc = model_eval(sess, x, y, preds_adv, X_test, Y_test, args=eval_par)
@@ -300,14 +303,10 @@ def mnist_tutorial(train_start=0, train_end=60000, test_start=0,
         report.adv_train_adv_eval = accuracy
 
     # Perform and evaluate adversarial training
-    img = to_image(X_test_adv[1])
-    img.show()
     model_train(sess, x, y, preds_2, X_train, Y_train,
                 predictions_adv=preds_2_adv, evaluate=evaluate_2,
                 args=train_params)
 
-    img = to_image(preds_2_adv.eval(session=sess))[1]
-    img.show
     return report
 
 def to_image(ex):
