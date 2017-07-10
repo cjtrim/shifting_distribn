@@ -197,7 +197,7 @@ def make_basic_cnn(nb_filters=64, nb_classes=10,
     return model
 
 
-def mnist_tutorial(train_start=0, train_end=60000, test_start=0,
+def cifar_adv_gen(train_start=0, train_end=60000, test_start=0,
                    test_end=10000, nb_epochs=6, batch_size=128,
                    learning_rate=0.001):
     """
@@ -356,7 +356,7 @@ def data_cifar10():
 
 
 def main(argv=None):
-    mnist_tutorial(nb_epochs=FLAGS.nb_epochs, batch_size=FLAGS.batch_size,
+    cifar_adv_gen(nb_epochs=FLAGS.nb_epochs, batch_size=FLAGS.batch_size,
                    learning_rate=FLAGS.learning_rate)
 
 
