@@ -218,11 +218,15 @@ def mnist_tutorial(train_start=0, train_end=60000, test_start=0,
     # Create TF session
     sess = tf.Session()
 
+    """
     # Get MNIST test data
     X_train, Y_train, X_test, Y_test = data_mnist(train_start=train_start,
                                                   train_end=train_end,
                                                   test_start=test_start,
                                                   test_end=test_end)
+    """
+
+    X_train, Y_train, X_test, Y_test = data_cifar10()
 
     # Use label smoothing
     assert Y_train.shape[1] == 10.
@@ -230,7 +234,7 @@ def mnist_tutorial(train_start=0, train_end=60000, test_start=0,
     Y_train = Y_train.clip(label_smooth / 9., 1. - label_smooth)
 
     # Define input TF placeholder
-    x = tf.placeholder(tf.float32, shape=(None, 28, 28, 1))
+    x = tf.placeholder(tf.float32, shape=(None, 32, 32, 2))
     y = tf.placeholder(tf.float32, shape=(None, 10))
 
     # Define TF model graph
@@ -247,9 +251,6 @@ def mnist_tutorial(train_start=0, train_end=60000, test_start=0,
         print('Test accuracy on legitimate examples: %0.4f' % acc)
 
     # Train an MNIST model
-    print(X_train[0].shape())
-
-
     train_params = {
         'nb_epochs': nb_epochs,
         'batch_size': batch_size,
@@ -291,9 +292,6 @@ def mnist_tutorial(train_start=0, train_end=60000, test_start=0,
         print('Test accuracy on adversarial examples: %0.4f' % accuracy)
         report.adv_train_adv_eval = accuracy
 
-
-    Image.fromarray(preds_2_adv[1].astype('uint8')).show()
-
     # Perform and evaluate adversarial training
     model_train(sess, x, y, preds_2, X_train, Y_train,
                 predictions_adv=preds_2_adv, evaluate=evaluate_2,
@@ -309,6 +307,48 @@ def to_image(ex):
     else:
         img = Image.fromarray(example)
     return img
+
+def data_cifar10():
+    """
+    Preprocess CIFAR10 dataset
+    :return:
+    """
+
+    # These values are specific to CIFAR10
+    img_rows = 32
+    img_cols = 32
+    nb_classes = 2
+
+    # the data, shuffled and split between train and test sets
+    (X_train, Y_train), (X_test, Y_test) = cifar10.load_data()
+
+    inds_train = [i for i, e in enumerate(Y_train) if e in (0, 1)]
+    inds_test = [i for i, e in enumerate(Y_test) if e in (0, 1)]
+
+    X_train = X_train[inds_train]
+    Y_train = Y_train[inds_train]
+    X_test = X_test[inds_test]
+    Y_test = Y_test[inds_test]
+
+    if keras.backend.image_dim_ordering() == 'th':
+        X_train = X_train.reshape(X_train.shape[0], 3, img_rows, img_cols)
+        X_test = X_test.reshape(X_test.shape[0], 3, img_rows, img_cols)
+    else:
+        X_train = X_train.reshape(X_train.shape[0], img_rows, img_cols, 3)
+        X_test = X_test.reshape(X_test.shape[0], img_rows, img_cols, 3)
+
+    X_train = X_train.astype('float32')
+    X_test = X_test.astype('float32')
+    X_train /= 255
+    X_test /= 255
+    print('X_train shape:', X_train.shape)
+    print(X_train.shape[0], 'train samples')
+    print(X_test.shape[0], 'test samples')
+
+    # convert class vectors to binary class matrices
+    Y_train = np_utils.to_categorical(Y_train, nb_classes)
+    Y_test = np_utils.to_categorical(Y_test, nb_classes)
+    return X_train, Y_train, X_test, Y_test
 
 
 def main(argv=None):
