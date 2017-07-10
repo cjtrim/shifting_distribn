@@ -182,7 +182,7 @@ class Flatten(Layer):
 
 
 def make_basic_cnn(nb_filters=64, nb_classes=10,
-                   input_shape=(None, 28, 28, 1)):
+                   input_shape=(None, 32, 32, 3)):
     layers = [Conv2D(nb_filters, (8, 8), (2, 2), "SAME"),
               ReLU(),
               Conv2D(nb_filters * 2, (6, 6), (2, 2), "VALID"),
@@ -237,7 +237,7 @@ def mnist_tutorial(train_start=0, train_end=60000, test_start=0,
     Y_train = Y_train.clip(label_smooth / 9., 1. - label_smooth)
 
     # Define input TF placeholder
-    x = tf.placeholder(tf.float32, shape=(None, 32, 32, 2))
+    x = tf.placeholder(tf.float32, shape=(None, 32, 32, 3))
     y = tf.placeholder(tf.float32, shape=(None, 10))
 
     # Define TF model graph
