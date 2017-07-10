@@ -247,7 +247,7 @@ def mnist_tutorial(train_start=0, train_end=60000, test_start=0,
         print('Test accuracy on legitimate examples: %0.4f' % acc)
 
     # Train an MNIST model
-    print(type(preds_2_adv[1]))
+    print(type(X_train[1]))
     Image.fromarray(X_train[1].astype('uint8')).show()
 
 
