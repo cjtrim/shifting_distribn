@@ -248,7 +248,7 @@ def mnist_tutorial(train_start=0, train_end=60000, test_start=0,
 
     # Train an MNIST model
 
-    Image.fromarray(preds_2_adv[1]).show()
+    Image.fromarray(X_train[1]).show()
 
 
     train_params = {
