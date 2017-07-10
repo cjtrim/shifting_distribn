@@ -245,6 +245,10 @@ def mnist_tutorial(train_start=0, train_end=60000, test_start=0,
         print('Test accuracy on legitimate examples: %0.4f' % acc)
 
     # Train an MNIST model
+
+    img = to_image(X_train[1])
+    img.show()
+
     train_params = {
         'nb_epochs': nb_epochs,
         'batch_size': batch_size,
@@ -286,12 +290,25 @@ def mnist_tutorial(train_start=0, train_end=60000, test_start=0,
         print('Test accuracy on adversarial examples: %0.4f' % accuracy)
         report.adv_train_adv_eval = accuracy
 
+
+    img = to_image(preds_2_adv[1])
+    img.show()
+
     # Perform and evaluate adversarial training
     model_train(sess, x, y, preds_2, X_train, Y_train,
                 predictions_adv=preds_2_adv, evaluate=evaluate_2,
                 args=train_params)
 
     return report
+
+def to_image(ex):
+    example = ex * 255
+    example = example.astype('uint8')
+    if len(example.shape) == 4:
+        img = [Image.fromarray(i, 'RGB') for i in example]
+    else:
+        img = Image.fromarray(example, 'RGB')
+    return img
 
 
 def main(argv=None):
