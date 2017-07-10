@@ -310,7 +310,7 @@ def mnist_tutorial(train_start=0, train_end=60000, test_start=0,
     return report
 
 def to_image(ex):
-    example = ex * 255
+    #example = ex * 255
     example = example.astype('uint8')
     if len(example.shape) == 4:
         img = [Image.fromarray(i) for i in example]
