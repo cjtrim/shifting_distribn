@@ -254,7 +254,7 @@ def mnist_tutorial(train_start=0, train_end=60000, test_start=0,
         print('Test accuracy on legitimate examples: %0.4f' % acc)
 
     # Train an MNIST model
-    img = to_image(X_train[1])
+    img = to_image(X_train[2])
     img.show()
 
     train_params = {
@@ -272,7 +272,7 @@ def mnist_tutorial(train_start=0, train_end=60000, test_start=0,
     X_test_adv, = batch_eval(sess, [x], [adv_x], [X_train])
     preds_adv = model.get_probs(adv_x)
 
-    img = to_image(X_test_adv[1]+X_train[1])
+    img = to_image(X_test_adv[2])
     img.show()
 
     # Evaluate the accuracy of the MNIST model on adversarial examples
