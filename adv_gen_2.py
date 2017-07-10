@@ -149,7 +149,7 @@ def main(argv=None):
               shuffle=True)
 
     # Craft adversarial examples using Fast Gradient Sign Method (FGSM)
-    adv_x = fgsm(x, predictions, eps=0.3)
+    adv_x = fgsm(x, predictions, eps=0.03)
     eval_params = {'batch_size': FLAGS.batch_size}
     X_test_adv, = batch_eval(sess, [x], [adv_x], [X_test], args=eval_params)
     assert X_test_adv.shape[0] == 2000
