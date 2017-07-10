@@ -169,7 +169,7 @@ def main(argv=None):
     # Redefine TF model graph
     model_2 = cnn_model(X_train.shape[1:], Y_test.shape[1])
     predictions_2 = model_2(x)
-    adv_x_2 = fgsm(x, predictions_2, eps=0.3)
+    adv_x_2 = fgsm(x, predictions_2, eps=0.03)
     predictions_2_adv = model_2(adv_x_2)
 
     def evaluate_2():
