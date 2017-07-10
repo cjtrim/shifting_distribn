@@ -22,6 +22,8 @@ from cleverhans.attacks import FastGradientMethod
 from cleverhans.utils import AccuracyReport
 from cleverhans.model import Model
 
+from PIL import Image
+
 FLAGS = flags.FLAGS
 
 """
