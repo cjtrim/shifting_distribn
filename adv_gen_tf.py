@@ -338,6 +338,7 @@ def data_cifar10():
     X_train /= 255
     X_test /= 255
     print('X_train shape:', X_train.shape)
+    print('Y_train shape:', Y_train.shape)
     print(X_train.shape[0], 'train samples')
     print(X_test.shape[0], 'test samples')
 
