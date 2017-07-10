@@ -157,6 +157,8 @@ def main(argv=None):
     X_test_adv = X_test.astype('float32')
     img_adv = to_image(X_test_adv[1])
     img_adv.show()
+    img_adv = to_image(X_test[1])
+    img_adv.show()
 
     # Evaluate the accuracy of the CIFAR10 model on adversarial examples
     accuracy = model_eval(sess, x, y, predictions, X_test_adv, Y_test,
