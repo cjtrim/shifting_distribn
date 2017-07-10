@@ -25,7 +25,7 @@ FLAGS = flags.FLAGS
 
 flags.DEFINE_string('train_dir', '/tmp', 'Directory storing the saved model.')
 flags.DEFINE_string('filename', 'cifar2.ckpt', 'Filename to save model under.')
-flags.DEFINE_integer('nb_epochs', 100, 'Number of epochs to train model')
+flags.DEFINE_integer('nb_epochs', 30, 'Number of epochs to train model')
 flags.DEFINE_integer('batch_size', 32, 'Size of training batches')
 flags.DEFINE_float('learning_rate', 0.001, 'Learning rate for training')
 
