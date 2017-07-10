@@ -247,8 +247,8 @@ def mnist_tutorial(train_start=0, train_end=60000, test_start=0,
         print('Test accuracy on legitimate examples: %0.4f' % acc)
 
     # Train an MNIST model
-    print(type(X_train[1]))
-    Image.fromarray(X_train[1].astype('uint8')).show()
+    img = to_image(X_train[0])
+    img.show()
 
 
     train_params = {
@@ -303,12 +303,12 @@ def mnist_tutorial(train_start=0, train_end=60000, test_start=0,
     return report
 
 def to_image(ex):
-    example = ex * 255
+    #example = ex * 255
     example = example.astype('uint8')
     if len(example.shape) == 4:
-        img = [Image.fromarray(i, 'RGB') for i in example]
+        img = [Image.fromarray(i) for i in example]
     else:
-        img = Image.fromarray(example, 'RGB')
+        img = Image.fromarray(example)
     return img
 
 
