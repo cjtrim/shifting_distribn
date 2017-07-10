@@ -16,6 +16,8 @@ import tensorflow as tf
 from tensorflow.python.platform import app
 from tensorflow.python.platform import flags
 
+from keras.datasets import cifar10
+
 from cleverhans.utils_mnist import data_mnist
 from cleverhans.utils_tf import model_train, model_eval
 from cleverhans.attacks import FastGradientMethod
