@@ -247,7 +247,7 @@ def mnist_tutorial(train_start=0, train_end=60000, test_start=0,
         print('Test accuracy on legitimate examples: %0.4f' % acc)
 
     # Train an MNIST model
-    print X_train[0].shape()
+    print(X_train[0].shape())
 
 
     train_params = {
