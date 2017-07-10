@@ -155,8 +155,6 @@ def main(argv=None):
     assert X_test_adv.shape[0] == 2000
 
     X_test_adv = X_test.astype('float32')
-    X_test_adv /= 255
-
     img_adv = to_image(X_test_adv[1])
     img_adv.show()
 
