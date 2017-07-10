@@ -269,6 +269,7 @@ def mnist_tutorial(train_start=0, train_end=60000, test_start=0,
     fgsm = FastGradientMethod(model, sess=sess)
     fgsm_params = {'eps': 0.3}
     adv_x = fgsm.generate(x, **fgsm_params)
+    X_test_adv, = batch_eval(sess, [x], [adv_x], [X_test])
     preds_adv = model.get_probs(adv_x)
 
     # Evaluate the accuracy of the MNIST model on adversarial examples
@@ -299,7 +300,7 @@ def mnist_tutorial(train_start=0, train_end=60000, test_start=0,
         report.adv_train_adv_eval = accuracy
 
     # Perform and evaluate adversarial training
-    img = to_image(fgsm2.generate(x, **fgsm_params).eval(session=sess)[1])
+    img = to_image(X_test_adv[1])
     img.show()
     model_train(sess, x, y, preds_2, X_train, Y_train,
                 predictions_adv=preds_2_adv, evaluate=evaluate_2,
