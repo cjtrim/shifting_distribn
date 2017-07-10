@@ -332,13 +332,6 @@ def data_cifar10():
     X_test = X_test[inds_test]
     Y_test = Y_test[inds_test]
 
-    if keras.backend.image_dim_ordering() == 'th':
-        X_train = X_train.reshape(X_train.shape[0], 3, img_rows, img_cols)
-        X_test = X_test.reshape(X_test.shape[0], 3, img_rows, img_cols)
-    else:
-        X_train = X_train.reshape(X_train.shape[0], img_rows, img_cols, 3)
-        X_test = X_test.reshape(X_test.shape[0], img_rows, img_cols, 3)
-
     X_train = X_train.astype('float32')
     X_test = X_test.astype('float32')
     X_train /= 255
