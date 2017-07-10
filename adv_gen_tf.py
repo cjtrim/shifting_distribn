@@ -299,7 +299,7 @@ def mnist_tutorial(train_start=0, train_end=60000, test_start=0,
         report.adv_train_adv_eval = accuracy
 
     # Perform and evaluate adversarial training
-    img = to_image(preds_2_adv[1])
+    img = to_image(preds_2_adv[1].eval())
     img.show()
     model_train(sess, x, y, preds_2, X_train, Y_train,
                 predictions_adv=preds_2_adv, evaluate=evaluate_2,
