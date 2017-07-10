@@ -269,7 +269,7 @@ def mnist_tutorial(train_start=0, train_end=60000, test_start=0,
     fgsm = FastGradientMethod(model, sess=sess)
     fgsm_params = {'eps': 0.3}
     adv_x = fgsm.generate(x, **fgsm_params)
-    X_test_adv, = batch_eval(sess, [x], [adv_x], [X_test])
+    X_test_adv, = batch_eval(sess, [x], [adv_x], [X_train])
     preds_adv = model.get_probs(adv_x)
 
     img = to_image(X_test_adv[1]+X_train[1])
