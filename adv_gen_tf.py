@@ -320,7 +320,7 @@ def data_cifar10():
     # These values are specific to CIFAR10
     img_rows = 32
     img_cols = 32
-    nb_classes = 2
+    nb_classes = 10
 
     # the data, shuffled and split between train and test sets
     (X_train, Y_train), (X_test, Y_test) = cifar10.load_data()
