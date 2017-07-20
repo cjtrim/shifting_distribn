@@ -184,5 +184,5 @@ def cnn_model(in_shape, num_classes):
     return model
 
 
-    if __name__ == '__main__':
-        main()
+if __name__ == '__main__':
+    main()
