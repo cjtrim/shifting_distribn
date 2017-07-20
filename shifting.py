@@ -185,3 +185,7 @@ def cnn_model(in_shape, num_classes):
     model.add(Activation('softmax'))
 
     return model
+
+
+    if __name__ == '__main__':
+        main()
