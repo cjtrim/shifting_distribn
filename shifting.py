@@ -1,6 +1,24 @@
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+from __future__ import unicode_literals
+
+import keras
+from keras import backend
+from keras.datasets import cifar10
+from keras.utils import np_utils
+from keras.models import Sequential
+from keras.layers import Dense, Dropout, Activation, Flatten, Conv2D, MaxPooling2D
+
+import tensorflow as tf
+from tensorflow.python.platform import app
+from tensorflow.python.platform import flags
+
+from cleverhans.utils_tf import model_train, model_eval, batch_eval
+from cleverhans.attacks import fgsm
+
 
 # global experiment vars
-
 # Directory storing the saved model.
 train_dir = "/tmp"
 # Filename to save model under.
@@ -92,7 +110,7 @@ def main(args):
             img_adv.close()
 
         print("Saving model as "+train_dir+'/'+filename(i))
-        save(train_dir+'/'+filename(i))
+        model.save(train_dir+'/'+filename(i))
         # retrain
         # repeat until images are unrecogizable
     # test resultant randomized classifier based on prob
