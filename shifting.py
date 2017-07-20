@@ -188,4 +188,4 @@ def cnn_model(in_shape, num_classes):
 
 
     if __name__ == '__main__':
-        main()
+        app.run()
