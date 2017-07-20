@@ -116,9 +116,6 @@ def main(args):
     # test resultant randomized classifier based on prob
 
 
-    pass
-
-
 def data_cifar(nb_classes):
     """
     Preprocess CIFAR10 dataset
@@ -188,4 +185,4 @@ def cnn_model(in_shape, num_classes):
 
 
     if __name__ == '__main__':
-        app.run()
+        main()
