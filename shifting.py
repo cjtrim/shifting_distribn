@@ -37,7 +37,7 @@ epsilon = 0.2
 # Number of classes
 num_classes = 2
 
-def main(args):
+def main(args=None):
 
     # Make sure tf is backend for keras.
     if not hasattr(backend, "tf"):
